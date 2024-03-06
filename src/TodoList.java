@@ -30,7 +30,6 @@ public class TodoList {
     }
 
     public boolean updateTaskUrgency(String name, int urgency) {
-
         for (Task task : tasks) {
             if (task.getName().equals(name)) {
                 task.setUrgency(urgency);
@@ -57,9 +56,15 @@ public class TodoList {
      * @return the average urgency across all tasks (a double).
      */
     public double averageUrgency() {
-
-        return 0.0;
-
+        double totalUrgency = 0.0;
+        int taskCount = tasks.toArray().length;
+        for (Task task : tasks) {
+            totalUrgency += task.getUrgency();
+        }
+        if (taskCount == 0) {
+            return 0.0;
+        }
+        return totalUrgency / taskCount;
     }
 
     /**
@@ -76,10 +81,15 @@ public class TodoList {
      *
      * BONUS Challenge:  Sort your to-do list in descending order of urgency
      */
-    public String toString() {
 
-        return "";
-        
+    public String toString() {
+        String result = "To-do List of " + owner + "\n";
+
+        for (Task task : tasks) {
+            result += task.getName() + "\t" + task.getUrgency() + "\n";
+        }
+
+        return result;
     }
 
 }
